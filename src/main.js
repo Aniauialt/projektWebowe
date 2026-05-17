@@ -6,20 +6,33 @@ const dateInput = document.querySelector('#bday');
 const dialog = document.querySelector('#result-dialog');
 const closeBtn = document.querySelector('#close-dialog');
 const dialogContent = document.querySelector('#dialog-content');
+const dialogWeeks = document.querySelector('#dialog-weeks');
 
 form.addEventListener('submit', (e) => {
-  e.preventDefault(); 
+  e.preventDefault();
 
- 
-  const birthDate = dayjs(dateInput.value);
-  const today = dayjs();
+  const today = dayjs().startOf('day');
+  const birthDate = dayjs(dateInput.value).startOf('day');
 
   const daysPassed = today.diff(birthDate, 'days');
 
-  const isBirthdayToday = today.format('MM-DD') === birthDate.format('MM-DD');
+  let nextBirthday = birthDate.year(today.year());
+  
+  if (nextBirthday.isBefore(today, 'day')) {
+    nextBirthday = nextBirthday.add(1, 'year');
+  }
 
-  if (isBirthdayToday) {
+  const daysUntilNext = nextBirthday.diff(today, 'days');
+  const weeksUntilNext = Math.floor(daysUntilNext / 7);
+
+  dialogWeeks.textContent = '';
+
+  if (daysUntilNext === 0) {
     alert('Wszystkiego najlepszego!');
+  } else if (weeksUntilNext === 0) {
+    dialogWeeks.textContent = 'Masz urodziny w tym tygodniu!';
+  } else {
+    dialogWeeks.textContent = `Do kolejnych urodzin pozostało: ${weeksUntilNext} tygodni(a).`;
   }
 
   dialogContent.textContent = `Od Twoich narodzin minęło dokładnie ${daysPassed} dni.`;
