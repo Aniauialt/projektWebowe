@@ -1,12 +1,31 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>projektwebowe</title>
+    <title>Kalkulator Urodzin</title>
   </head>
-  <body>
+  <body class="p-8 font-sans bg-gray-50 flex flex-col items-center">
+    
+    <h1 class="text-2xl font-bold mb-6">Kalkulator Dni Urodzin</h1>
+
+    <form id="birthday-form" class="flex flex-col gap-4 w-full max-w-sm">
+      <label for="bday" class="font-medium text-gray-700">Wybierz datę urodzenia:</label>
+      <input type="date" id="bday" required class="border border-gray-300 p-2 rounded" />
+      
+      <button type="submit" class="bg-blue-300 p-4 rounded hover:bg-blue-400 transition font-medium">
+        Oblicz dni
+      </button>
+    </form>
+
+    <dialog id="result-dialog" class="bg-gray-200 text-red-600 p-6 rounded-lg shadow-xl relative w-80 max-w-full backdrop:bg-black/40">
+      <button id="close-dialog" class="absolute top-2 right-3 text-red-800 hover:text-red-900 font-bold text-xl cursor-pointer">
+        &times;
+      </button>
+      
+      <p id="dialog-content" class="mt-4 text-center font-medium text-lg"></p>
+    </dialog>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
